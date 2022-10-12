@@ -1,3 +1,8 @@
-from django.shortcuts import render
+from django.shortcuts import HttpResponse, render
 
-# Create your views here.
+def home(request):
+    if request.user.is_authenticated:
+        return HttpResponse("Working")
+    else:
+        return HttpResponse("Not loged In")
+
