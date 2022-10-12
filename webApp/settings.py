@@ -133,3 +133,6 @@ STATICFILES_DIRS = [
 LOGIN_REDIRECT_URL ='apphome'
 LOGIN_URL = 'login'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = BASE_DIR / 'media'
