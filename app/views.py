@@ -1,6 +1,12 @@
 from django.shortcuts import HttpResponse, get_object_or_404, render
 from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
-from django.views.generic import CreateView,DetailView,ListView,UpdateView
+from django.views.generic import (
+    CreateView,
+    DetailView,
+    ListView,
+    UpdateView,
+    DeleteView
+    )
 from django.contrib.auth.models import User
 from . models import Post
 
@@ -53,6 +59,17 @@ class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
         print(form)
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
+
+class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
+    model = Post
+    success_url = '/'
+    template_name = 'app/post_confirm_delete.html'
 
     def test_func(self):
         post = self.get_object()
