@@ -1,6 +1,6 @@
 from django.shortcuts import HttpResponse, get_object_or_404, render
-from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView,DetailView,ListView
+from django.contrib.auth.mixins import LoginRequiredMixin,UserPassesTestMixin
+from django.views.generic import CreateView,DetailView,ListView,UpdateView
 from django.contrib.auth.models import User
 from . models import Post
 
@@ -42,4 +42,21 @@ class UserPostListView(ListView):
 class PostDetailView(DetailView):
     model = Post
     template_name = 'app/post_detail.html'
+
+
+class PostUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Post
+    template_name = 'app/post_form.html'
+    fields = ['title', 'content', 'file']
+
+    def form_valid(self, form):
+        print(form)
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        post = self.get_object()
+        if self.request.user == post.author:
+            return True
+        return False
 
