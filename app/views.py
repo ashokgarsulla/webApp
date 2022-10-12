@@ -1,8 +1,11 @@
 from django.shortcuts import HttpResponse, render
+from . models import Post
 
 def home(request):
-    if request.user.is_authenticated:
-        return HttpResponse("Working")
-    else:
-        return HttpResponse("Not loged In")
+    context = {
+        'posts': Post.objects.all()
+    }
+
+    template = "app/home.html"
+    return render(request,template,context)
 
