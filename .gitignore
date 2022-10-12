@@ -9,4 +9,5 @@ local_settings.py
 .env
 db.sqlite3
 *.txt
-media/
+media/Files
+media/profile_pics
