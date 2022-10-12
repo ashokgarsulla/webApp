@@ -1,6 +1,6 @@
 from django.shortcuts import HttpResponse, render
 from django.contrib.auth.mixins import LoginRequiredMixin
-from django.views.generic import CreateView
+from django.views.generic import CreateView,DetailView
 from . models import Post
 
 
@@ -20,3 +20,7 @@ class PostCreateView(LoginRequiredMixin, CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'app/post_detail.html'
