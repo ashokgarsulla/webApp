@@ -132,3 +132,4 @@ STATICFILES_DIRS = [
 
 LOGIN_REDIRECT_URL ='apphome'
 LOGIN_URL = 'login'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
