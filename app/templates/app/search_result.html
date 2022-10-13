@@ -1,0 +1,28 @@
+{% extends 'app/base.html' %}
+{% block content %}
+<p>Search Result'{{query_string}}': {{posts.count}}</p> 
+
+    {% if posts %}
+    {% for post in posts %}
+      <div class="jumbotron mt-3 bg-white shadow-lg">
+      <article class="media content-section shadow">
+        <div class="media-body">
+          <div class="article-metadata d-flex justify-content-between">
+            <a class="mr-2 " href="{% url 'user-posts' post.author %}"><h3>{{ post.author }}</h3></a>
+              <small class="text-muted">{{ post.date_upload|date:"F d, Y" }}</small>
+          </div>
+          <h2><a class="article-title text-justify " href="{% url 'post-detail' post.id %}">{{ post.title }}</a></h2>
+          <div class="d-flex justify-content-between">
+            <p class="article-content text-justify text-truncate overflow-hidden">{{ post.content }}</p>
+          </div>
+        </div>
+      </article>
+      </div>   
+    {% endfor %}
+    {% else %}
+    <h1>Result Not fount</h1>
+    {% endif %}
+
+   
+    
+{% endblock content %}

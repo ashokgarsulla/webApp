@@ -9,6 +9,7 @@ from django.views.generic import (
     )
 from django.contrib.auth.models import User
 from . models import Post
+from django.db.models import Q
 
 
 def home(request):
@@ -77,3 +78,12 @@ class PostDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
             return True
         return False
 
+def search(request):
+    template='app/search_result.html'
+
+    query=request.GET.get('q')
+
+    result=Post.objects.filter(Q(title__icontains=query) | Q(author__username__icontains=query) | Q(content__icontains=query))
+    context={ 'posts':result,
+    'query_string':query }
+    return render(request,template,context)
