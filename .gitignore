@@ -6,16 +6,8 @@ __pycache__/
 
 # local_settings.py
 
-<<<<<<< HEAD
 /env
 db.sqlite3
 *.txt
 media/Files
 media/profile_pics
-=======
-env
-# db.sqlite3
-# *.txt
-# media/Files
-# media/profile_pics
->>>>>>> 8bb75d06047a69ff45d5387735b1091b7d8f957d
